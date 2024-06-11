@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>인서트타이틀히어</title>
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+</head>
+<body>
+	<h1>사용자목록</h1>
+	<a href="/users/insert">회원가입하러가기</a><br><hr>
+	<div>
+		<form name="frm">
+			<select name="key">
+				<option value="uid">아이디</option>
+				<option value="uname">이름</option>
+				<option value="add1">주소</option>
+				<option value="phone">전화번호</option>
+			</select>
+			<input name="word" placeholder ="검색어">
+			<button>검색하기</button>
+			총회원수 : <span id="total"></span><hr>
+		</form>
+		<div id="div_list"></div><br><hr>
+		<div>
+			<button id="prev">이전</button>
+			<span id="page"><strong>1</strong></span>
+			<button id="next">다음</button>
+		</div>
+	</div>
+	<script id = "temp_list" type="handlebars-template">
+		<table border=1>
+				<tr>
+					<td>아이디(이름)</td>	
+					<td>전화번호</td>
+					<td>주소</td>
+					<td>가입일</td>
+				</tr>
+			{{#each documents}}
+				<tr>
+					<td><a href="/users/read/{{uid}}">{{uid}}({{uname}})</a></td>
+					<td>{{phone}}</td>
+					<td>{{add1}} {{add2}}</td>
+					<td>{{fmtdate}}</td>
+				</tr>
+			{{/each}}
+		</table>
+	</script>
+</body>
+
+
+
+
+
+<script>
+
+let page=1;
+let size=3;
+let key=$(frm.key).val();
+let word=$(frm.word).val();
+
+	$(frm).on("submit", function(e){
+		e.preventDefault();
+		key=$(frm.key).val();
+		word=$(frm.word).val();
+		page=1;
+		getList();
+	});
+
+	$("#next").on("click", function(){
+		page++;
+		getList();
+	});
+	
+	$("#prev").on("click", function(){
+		page--;
+		getList();
+	});
+
+
+
+	getList();
+	function getList(){
+		$.ajax({
+			type:"get",
+			url:"/users/slist.json",
+			dataType:"json",
+			data:{page, size, key, word},
+			success:function(data){
+				console.log(data);
+				const temp=Handlebars.compile($("#temp_list").html());
+				$("#div_list").html(temp(data));
+				const last=Math.ceil(data.total/size);
+				
+				$("#page").html(page + "/" + last);
+				$("#total").html(data.total);
+				
+				if(page==1) $("#prev").attr("disabled", true);
+				else $("#prev").attr("disabled", false);
+				
+				if(page==last) $("#next").attr("disabled", true);
+				else $("#next").attr("disabled", false);
+			}
+		});
+	}
+</script>
+</html>

@@ -1,0 +1,37 @@
+
+<div>
+	<h1>로그인</h1>
+	<form name="frm">
+		<input name="uid" value="red" placeholder="아이디"><br>
+		<input name="upass" value="red" type="password" placeholder="비밀번호"><br>
+		<button type="submit">로그인</button>
+	</form>
+</div>
+<a href="/">홈으로가기 </a>
+<script>
+	
+	$(frm).on("submit", function(e){
+		e.preventDefault();
+		const uid=$(frm.uid).val();
+		const upass=$(frm.upass).val();
+		$.ajax({
+			type:"get",
+			url:"/users/" + uid,
+			dataType:"json",
+			success:function(data){
+				console.log(data);
+				if(upass==data.upass){
+					//alert("로그인성공!");
+					sessionStorage.setItem("user", JSON.stringify(data));
+					alert(uid+"의 아이디로 로그인하였습니다.")
+					location.href="/";
+				}else{
+					alert("비밀번호가 일치하지 않습니다!");
+				}
+			},
+			error:function(){
+				alert("아이디가 존재하지 않습니다!");
+			}
+		});
+	});
+</script>
