@@ -1,0 +1,38 @@
+<div class="container">
+	<div class="text-center">
+		<form name="frm">
+			<input placeholder="제목쓰세요" name="title" size="79">
+			<br><br>
+			<textarea name="contents" cols="80" rows="25"></textarea>
+			<div>
+				<button type="reset" class="btn btn-outline-danger">다시쓰기</button>
+				<button class="btn btn-outline-primary">글쓰기</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script>
+
+	const uid=user.uid;
+	
+	$(frm).on("submit", function(e){
+		e.preventDefault();
+		const title=$(frm.title).val();
+		const contents=$(frm.contents).val();
+		if(title==""){
+			alert("제목을 입력하세요");
+			return;
+		}
+		//글저장
+		$.ajax({
+			type:"post",
+			url:"/bbs/insert",
+			data:{uid, contents, title},
+			success:function(){
+				location.href= "/bbs/list";
+				alert("글이 등록되었습니다.");
+			}
+		});
+	});
+</script>

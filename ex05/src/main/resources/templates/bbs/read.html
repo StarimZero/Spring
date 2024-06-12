@@ -1,0 +1,53 @@
+
+
+<div class="container">
+	<div  xmlns:th="http://www.thymeleaf.org" class="justify-content-center">
+		<h1 class="text-center">게시글 정보</h1>
+		<div>
+			[<span th:text=${bbs.bid}></span>]
+			<h4 th:text=${bbs.title}></h4>
+		</div>
+		<div>
+			작성자 : <span th:text=${bbs.uid}></span>
+			이름 :<span th:text=${bbs.uname}></span>
+		</div>
+		<div>
+			작성일 : <span th:text="${#dates.format(bbs.regDate, 'yy년MM월dd일 HH:mm:ss')}"></span>
+			조회수 : <span th:text=${bbs.viewcnt}></span>
+		</div>
+		<hr>
+		<div th:text=${bbs.contents} style="white-space: pre-wrap;"></div>
+		<hr>
+		<div class="text-end" id="buttons">
+			<button type="button" class="btn btn-outline-danger"  id="btn_delete">삭제</button>
+			<button type="button" class="btn btn-outline-info" id="btn_update">수정</button>
+		</div>
+	</div>
+</div>
+
+<script>
+	const uid = "[[${bbs.uid}]]";
+	const bid = "[[${bbs.bid}]]";
+	
+	$("#btn_update").on("click", function(){
+		location.href="/bbs/update/"+bid;
+	});
+	
+	$("#btn_delete").on("click", function(){
+		if(!confirm(bid + "번 게시글을 삭제하시겠습니까?")) return;
+		$.ajax({
+			type:"post",
+			url:"/bbs/delete/" + bid,
+			success:function(){
+				alert("게시글을 삭제하였습니다.")
+				location.href="/bbs/list";
+			}
+		});
+	});
+	
+	if(user.uid==uid){
+		$("#buttons").show();
+	}else{
+		$("#buttons").hide();
+	}
+</script>
