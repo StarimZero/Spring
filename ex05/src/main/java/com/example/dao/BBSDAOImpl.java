@@ -58,4 +58,13 @@ public class BBSDAOImpl implements BBSDAO{
 		
 	}
 
+	@Override
+	public void updateReplycnt(int bid, int amount) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("bid", bid);
+		map.put("amount", amount);
+		session.update(namespace + ".updateReplycnt", map);
+		
+	}
+
 }

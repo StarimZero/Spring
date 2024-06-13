@@ -50,6 +50,9 @@
  	<update id="updateViewcnt">
  		update bbs set viewcnt=viewcnt+1 where bid=#{bid}
  	</update>
+ 	<update id="updateReplycnt">
+ 		update bbs set replycnt = replycnt + #{amount} where bid = #{bid}
+ 	</update>
 </mapper>
 
 

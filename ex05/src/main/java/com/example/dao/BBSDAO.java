@@ -18,4 +18,6 @@ public interface BBSDAO {
 	public void insert(BBSVO vo);
 	//조회수 올리기
 	public void updateViewcnt(int bid);
+	//조회수 연동하기 
+	public void updateReplycnt(int bid, int amount);
 }
