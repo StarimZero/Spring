@@ -4,7 +4,7 @@
 
 
  	<insert id="insert">
- 		insert into reply(bid, uid, contents) values(#{bid}, #{uid}, #{contents})
+ 		insert into reply(bid, uid, contents, rating) values(#{bid}, #{uid}, #{contents}, #{rating})
  	</insert>
  	
  	<select id="list" resultType="hashmap">
@@ -20,7 +20,7 @@
  	</delete>
  	
  	<update id="update">
- 		update reply set contents=#{contents}, updateDate=now() where rid=#{rid}
+ 		update reply set contents=#{contents},rating=#{rating}, updateDate=now() where rid=#{rid}
  	</update>
  	
  	<select id="read" resultType="com.example.domain.ReplyVO">

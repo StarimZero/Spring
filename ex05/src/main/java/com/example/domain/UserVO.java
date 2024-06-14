@@ -12,7 +12,7 @@ public class UserVO {
 	private String add2;
 	private String photo;
 	
-	@JsonFormat(pattern="yyyy년MM월dd일 HH:mm:ss", timezone="Asia/Seoul")
+	@JsonFormat(pattern="yy년MM월dd일 HH:mm:ss", timezone="Asia/Seoul")
 	private Date regDate;
 	
 	public Date getRegDate() {

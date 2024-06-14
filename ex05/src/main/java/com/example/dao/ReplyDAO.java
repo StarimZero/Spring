@@ -19,4 +19,5 @@ import com.example.domain.ReplyVO;
 		//읽어오기
 		public ReplyVO read(int rid);
 	
+	
 }

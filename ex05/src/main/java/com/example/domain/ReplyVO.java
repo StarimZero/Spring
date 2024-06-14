@@ -12,6 +12,10 @@ public class ReplyVO extends UserVO{
 	@JsonFormat(pattern="yy년MM월dd일 HH시mm분ss초", timezone="Asia/Seoul")
 	private Date regDate;
 	private String contents;
+	private int rating;
+	
+	
+	
 	public int getRid() {
 		return rid;
 	}
@@ -43,14 +47,21 @@ public class ReplyVO extends UserVO{
 		this.contents = contents;
 	}
 	
+	public int getRating() {
+		return rating;
+	}
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
+	
 	
 	@Override
 	public String toString() {
 		return "ReplyVO [rid=" + rid + ", bid=" + bid + ", uid=" + uid + ", regDate=" + regDate + ", contents="
-				+ contents + ", getPhone()=" + getPhone() + ", getAddress1()=" + getAddress1() + ", getAddress2()="
-				+ getAddress2() + ", getPhoto()=" + getPhoto() + ", getUname()=" + getUname() + "]";
+				+ contents + ", rating=" + rating + ", getPhone()=" + getPhone() + ", getPhoto()=" + getPhoto()
+				+ ", getUname()=" + getUname() + "]";
 	}
-	
+
 	
 	
 	
