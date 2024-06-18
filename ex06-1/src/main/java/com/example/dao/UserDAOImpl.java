@@ -1,6 +1,7 @@
 package com.example.dao;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,20 @@ public class UserDAOImpl implements UserDAO{
 		map.put("uid", uid);
 		session.update(namespace + ".updatePass", map);
 		
+	}
+
+	@Override
+	public void updatePoint(String uid, int amount) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("amount", amount);
+		map.put("uid", uid);
+		session.update(namespace + ".updatePoint", map);
+		
+	}
+
+	@Override
+	public List<UserVO> list() {
+		return session.selectList(namespace + ".list");
 	}
 
 }

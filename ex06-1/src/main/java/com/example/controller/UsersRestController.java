@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import java.io.File;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,5 +49,13 @@ public class UsersRestController {
 		dao.updatePass(vo.getUid(), vo.getUpass());
 		
 	}
+	
+	@GetMapping("")
+	public List<UserVO> list() {
+		return dao.list();
+	}
+
+	
+
 	
 }
