@@ -55,6 +55,21 @@ public class CouDAOImpl implements CouDAO {
 		
 		return session.selectOne(namespace + ".total");
 	}
+
+	@Override
+	public void updatePersons(String lcode, int amount) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("lcode", lcode);
+		map.put("amount", amount);
+		session.update(namespace + ".updatePersons", map);
+		
+	}
+
+	@Override
+	public void updatePhoto(CouVO vo) {
+		session.update(namespace + ".updatePhoto", vo);
+		
+	}
 	
 	
 	

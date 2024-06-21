@@ -26,4 +26,10 @@ public interface CouDAO {
 	
 	//토탈구하기
 	public int total();
+	
+	//수강신청에맞는 인원표출
+	public void updatePersons(String lcode, int amount);
+	
+	//사진 업로드
+	public void updatePhoto(CouVO vo);
 }

@@ -55,6 +55,11 @@ public class CouController {
 		dao.update(vo);
 	}
 	
+	@PostMapping("/update/photo")
+	public void updatePhoto(@RequestBody CouVO vo) {
+		dao.updatePhoto(vo);
+	}
+	
 	
 	
 	

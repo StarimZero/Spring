@@ -10,6 +10,7 @@ public class CouVO extends ProVO{
 	private int capacity;
 	private int persons;
 	private String dept;
+	private String photo;
 	
 	
 	
@@ -60,6 +61,15 @@ public class CouVO extends ProVO{
 	}
 	public void setDept(String dept) {
 		this.dept = dept;
+	}
+	
+	
+	
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 	@Override
 	public String toString() {
