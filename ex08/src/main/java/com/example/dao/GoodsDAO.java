@@ -17,7 +17,11 @@ public interface GoodsDAO {
 	public int total();
 	//상품삭제
 	public void delete(String gid);
-	
-	
+	//상품업데이트
+	public void updqte(GoodsVO vo);
+	//이미지 업데이트
+	public void updateImage(GoodsVO vo);
+	//글 추가하기 
+	public void updateContents(GoodsVO vo);
 	
 }

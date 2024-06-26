@@ -16,4 +16,13 @@
 	 <delete id="delete">
 	 	delete from goods where gid=#{gid}
 	 </delete>
+	 <update id="update">
+	 	update goods set title=#{title}, price=#{price}, maker=#{maker}, brand=#{brand} where gid=#{gid}
+	 </update>
+	 <update id="updateImage">
+	 	update goods set image=#{image} where gid=#{gid}
+	 </update>
+	 <update id="updateContents">
+	 	update goods set contents=#{contents} where gid=#{gid}
+	 </update>
 </mapper>
