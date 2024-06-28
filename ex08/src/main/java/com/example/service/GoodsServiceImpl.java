@@ -38,4 +38,12 @@ public class GoodsServiceImpl implements GoodsService{
 		return map;
 	}
 
+	@Transactional
+	@Override
+	public int insertRelated(String gid, String rid) {
+		int count = dao.countRealate(gid, rid);
+		if(count==0) dao.insertRelated(gid, rid);
+		return count;
+	}
+
 }

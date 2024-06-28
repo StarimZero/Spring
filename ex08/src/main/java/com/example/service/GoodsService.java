@@ -11,4 +11,7 @@ public interface GoodsService {
 	public int insert (GoodsVO vo);
 	//리스트 
 	public HashMap<String, Object> list(QueryVO vo);
+	
+	//관련상품등록하기
+	public int insertRelated(String gid, String rid);
 }

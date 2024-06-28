@@ -3,6 +3,8 @@ package com.example.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.dao.GoodsDAO;
+import com.example.domain.AttachVO;
 import com.example.domain.GoodsVO;
 import com.example.domain.NaverAPI;
 import com.example.domain.QueryVO;
@@ -97,7 +100,74 @@ public class GoodsController {
 	}
 	
 	
+	//여러개파일 업로드
+	@PostMapping("/attach/{gid}")
+	public void attach(@PathVariable("gid") String gid, MultipartHttpServletRequest multi) {
+		try {
+			String filePath = "/upload/mall/" + gid + "/";
+			File folder = new File("c:" + filePath);
+			if(!folder.exists()) folder.mkdir();
+			List<MultipartFile> files = multi.getFiles("bytes");
+			for(MultipartFile file:files) {
+				String fileName = UUID.randomUUID().toString()+".jpg";
+				file.transferTo(new File("c:" + filePath + fileName));
+				AttachVO vo = new AttachVO();
+				vo.setGid(gid);
+				vo.setFilename("/display?file=" + filePath + fileName);
+				dao.insertAttach(vo);
+			}
+		}catch(Exception e){
+			System.out.println("사진여러개업로드하다가오류........." + e.toString());
+		}
+	}
 	
+	//파일보기
+	@GetMapping("/attach/{gid}") //테스트 : /goods/attach/48102139619
+	public List<AttachVO> listAttach(@PathVariable("gid") String gid){
+		return dao.listAttach(gid);
+	}
+	
+	//파일삭제 // /display?file=
+	@PostMapping("/attach/delete")
+	public void deleteAttach(@RequestBody AttachVO vo) {
+		try {
+			String displayName = vo.getFilename();
+			int index = displayName.indexOf("=");
+			String fileName = displayName.substring(index + 1);
+			File file = new File("c:"  + fileName);
+			if(file.exists()) file.delete();
+			dao.deleteAttach(vo.getAid());
+		}catch(Exception e) {
+			System.out.println("파일삭제하다가오류 ...." + e.toString());
+		}
+	}
+	
+	//관련상품등록
+	@PostMapping("/related/insert")
+	public int insertRelate(@RequestBody HashMap<String, Object> map){
+		return service.insertRelated(map.get("gid").toString(), map.get("rid").toString());
+	}
+	
+	//관련상품목록
+	@GetMapping("/related/list/{gid}")
+	public List<HashMap<String, Object>> listRelated(@PathVariable("gid") String gid){
+		return dao.listRelated(gid);
+	}
+	
+	
+	//관련상품삭제
+	@PostMapping("/related/delete")
+	public void deleteRelated(@RequestBody HashMap<String,Object> map) {
+		String rid=map.get("rid").toString();
+		String gid=map.get("gid").toString();
+		dao.deleteRelated(rid, gid);
+	}
+	
+
+
+
+
+
 	
 	
 	

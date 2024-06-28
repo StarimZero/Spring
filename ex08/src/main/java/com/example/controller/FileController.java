@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class FileController {
 	
+	//다운로드
 	@PostMapping("/download") //테스트 /download?file=https://shopping-phinf.pstatic.net/main_4556049/45560491289.jpg
 	public void download(@RequestParam("file") String file) throws Exception {
 		URL url = new URL(file);
